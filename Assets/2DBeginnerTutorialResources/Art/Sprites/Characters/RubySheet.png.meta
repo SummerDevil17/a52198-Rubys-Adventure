@@ -111,7 +111,7 @@ TextureImporter:
       213: 21300070
     second: RubyIdleUp2
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -171,6 +171,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -183,7 +184,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 1024
@@ -195,7 +196,67 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -714,30 +775,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RubyRunSide1: 21300024
-      RubyRunUp4: 21300038
-      RubyRunUp1: 21300032
-      RubyRunUp3: 21300036
       RubyHitSides: 21300056
-      RubyRunUp2: 21300034
-      RubyHitdown: 21300060
-      RubyRunDown2: 21300042
-      RubyIdleSide1: 21300048
-      RubyRunSide4: 21300030
-      RubyIdleDown2: 21300068
-      RubyIdleUp1: 21300052
-      RubyLaunchUp: 21300062
-      RubyRunSide2: 21300026
-      RubyRunDown4: 21300046
-      RubyLaunchDown: 21300054
-      RubyIdleDown1: 21300050
-      RubyRunSide3: 21300028
-      RubyRunDown3: 21300044
-      RubyLauchSides: 21300064
-      RubyIdleSides2: 21300066
-      RubyIdleUp2: 21300070
-      RubyRunDown1: 21300040
       RubyHitUp: 21300058
+      RubyHitdown: 21300060
+      RubyIdleDown1: 21300050
+      RubyIdleDown2: 21300068
+      RubyIdleSide1: 21300048
+      RubyIdleSides2: 21300066
+      RubyIdleUp1: 21300052
+      RubyIdleUp2: 21300070
+      RubyLauchSides: 21300064
+      RubyLaunchDown: 21300054
+      RubyLaunchUp: 21300062
+      RubyRunDown1: 21300040
+      RubyRunDown2: 21300042
+      RubyRunDown3: 21300044
+      RubyRunDown4: 21300046
+      RubyRunSide1: 21300024
+      RubyRunSide2: 21300026
+      RubyRunSide3: 21300028
+      RubyRunSide4: 21300030
+      RubyRunUp1: 21300032
+      RubyRunUp2: 21300034
+      RubyRunUp3: 21300036
+      RubyRunUp4: 21300038
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
