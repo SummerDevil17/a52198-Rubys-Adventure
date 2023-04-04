@@ -4,10 +4,15 @@ using UnityEngine.InputSystem;
 public class RubyController : MonoBehaviour
 {
     [Range(0, 10)][SerializeField] float speed = 3f;
+    [SerializeField] float timeInvincible = 2f;
+
     [SerializeField] int maxHealth = 5;
 
     //Stat Control Variables
+    private float invincibilityTimer;
     private int currentHealth;
+
+    private bool isInvincible;
 
     #region Component References
     private PlayerInput rubyPlayerController;
@@ -24,7 +29,16 @@ public class RubyController : MonoBehaviour
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
-        currentHealth = 1;
+    }
+
+    void Update()
+    {
+        if (isInvincible)
+        {
+            invincibilityTimer -= Time.deltaTime;
+
+            if (invincibilityTimer <= 0) isInvincible = false;
+        }
     }
 
     void FixedUpdate()
@@ -38,6 +52,14 @@ public class RubyController : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        if (amount < 0)
+        {
+            if (isInvincible) return;
+
+            isInvincible = true;
+            invincibilityTimer = timeInvincible;
+        }
+
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log("HP: " + currentHealth + "/" + maxHealth);
     }
