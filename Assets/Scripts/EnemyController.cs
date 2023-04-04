@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     private int currentDirection = 1;
     private Rigidbody2D enemyRigidbody2D;
     private Animator enemyAnimator;
+    private bool isBroken = true;
 
 
     void Start()
@@ -22,6 +23,9 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        //if is not broken then it has been repaired
+        if (!isBroken) return;
+
         timeTillNewDirection -= Time.deltaTime;
 
         if (timeTillNewDirection < 0)
@@ -33,6 +37,8 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!isBroken) return;
+
         Vector2 pos = enemyRigidbody2D.position;
         if (isMovingVertical)
         {
@@ -59,5 +65,13 @@ public class EnemyController : MonoBehaviour
         {
             rubyController.ChangeHealth(-amountToDamage);
         }
+    }
+
+    public void Fix()
+    {
+        isBroken = false;
+        enemyRigidbody2D.simulated = false;
+
+        enemyAnimator.SetTrigger("Fixed");
     }
 }

@@ -4,12 +4,16 @@ using UnityEngine.InputSystem;
 public class RubyController : MonoBehaviour
 {
     [Range(0, 10)][SerializeField] float speed = 3f;
+    [SerializeField] int maxHealth = 5;
     [SerializeField] float timeInvincible = 2f;
 
-    [SerializeField] int maxHealth = 5;
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] float launchForce = 300f;
+    [SerializeField] float timeBetweenLaunches = 1.5f;
 
     //Stat Control Variables
     private float invincibilityTimer;
+    private float timeTillNextLaunch;
     private int currentHealth;
 
     private bool isInvincible;
@@ -42,6 +46,7 @@ public class RubyController : MonoBehaviour
 
             if (invincibilityTimer <= 0) isInvincible = false;
         }
+        timeTillNextLaunch -= Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -81,5 +86,17 @@ public class RubyController : MonoBehaviour
         rubyAnimator.SetFloat("Look X", animationLookDirection.x);
         rubyAnimator.SetFloat("Look Y", animationLookDirection.y);
         rubyAnimator.SetFloat("Speed", currentMovementInput.magnitude);
+    }
+
+    private void OnLaunch()
+    {
+        if (timeTillNextLaunch >= 0) return;
+
+        GameObject projectileObject = Instantiate(projectilePrefab, playerRigidBody2D.position + Vector2.up * 0.5f, Quaternion.identity);
+        projectileObject.GetComponent<Projectile>().Launch(animationLookDirection, launchForce);
+
+        timeTillNextLaunch = timeBetweenLaunches;
+
+        rubyAnimator.SetTrigger("Launch");
     }
 }
