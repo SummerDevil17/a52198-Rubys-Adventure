@@ -17,7 +17,9 @@ public class RubyController : MonoBehaviour
     #region Component References
     private PlayerInput rubyPlayerController;
     private Rigidbody2D playerRigidBody2D;
+    private Animator rubyAnimator;
     private Vector2 currentMovementInput;
+    private Vector2 animationLookDirection = new Vector2(1f, 0f);
     #endregion
 
     #region Encapsulated Variables/ Properties
@@ -28,6 +30,7 @@ public class RubyController : MonoBehaviour
     void Start()
     {
         playerRigidBody2D = GetComponent<Rigidbody2D>();
+        rubyAnimator = GetComponent<Animator>();
         currentHealth = maxHealth;
     }
 
@@ -44,8 +47,7 @@ public class RubyController : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 position = playerRigidBody2D.position;
-        position.x += speed * currentMovementInput.x * Time.deltaTime;
-        position.y += speed * currentMovementInput.y * Time.deltaTime;
+        position += speed * currentMovementInput * Time.deltaTime;
 
         playerRigidBody2D.MovePosition(position);
     }
@@ -58,6 +60,8 @@ public class RubyController : MonoBehaviour
 
             isInvincible = true;
             invincibilityTimer = timeInvincible;
+
+            rubyAnimator.SetTrigger("Hit");
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
@@ -67,5 +71,15 @@ public class RubyController : MonoBehaviour
     private void OnMove(InputValue movementInput)
     {
         currentMovementInput = movementInput.Get<Vector2>();
+
+        if (!Mathf.Approximately(currentMovementInput.x, 0.0f) || !Mathf.Approximately(currentMovementInput.y, 0.0f))
+        {
+            animationLookDirection.Set(currentMovementInput.x, currentMovementInput.y);
+            animationLookDirection.Normalize();
+        }
+
+        rubyAnimator.SetFloat("Look X", animationLookDirection.x);
+        rubyAnimator.SetFloat("Look Y", animationLookDirection.y);
+        rubyAnimator.SetFloat("Speed", currentMovementInput.magnitude);
     }
 }
