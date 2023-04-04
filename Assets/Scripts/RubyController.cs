@@ -4,33 +4,42 @@ using UnityEngine.InputSystem;
 public class RubyController : MonoBehaviour
 {
     [Range(0, 10)][SerializeField] float speed = 3f;
+    [SerializeField] int maxHealth = 5;
 
+    //Stat Control Variables
+    private int currentHealth;
+
+    #region Component References
     private PlayerInput rubyPlayerController;
     private Rigidbody2D playerRigidBody2D;
     private Vector2 currentMovementInput;
+    #endregion
+
+    #region Encapsulated Variables/ Properties
+    public int MaxHealth { get => maxHealth; }
+    public int CurrentHealth { get => currentHealth; }
+    #endregion
 
     void Start()
     {
-        //QualitySettings.vSyncCount = 0;
-        //Application.targetFrameRate = 10;
         playerRigidBody2D = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        currentHealth = 1;
     }
 
     void FixedUpdate()
     {
-        /*float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector2 position = transform.position;
-        position.x += 0.1f * horizontal;
-        position.y += 0.1f * vertical;
-        transform.position = position; */
-
         Vector2 position = playerRigidBody2D.position;
         position.x += speed * currentMovementInput.x * Time.deltaTime;
         position.y += speed * currentMovementInput.y * Time.deltaTime;
 
         playerRigidBody2D.MovePosition(position);
+    }
+
+    public void ChangeHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        Debug.Log("HP: " + currentHealth + "/" + maxHealth);
     }
 
     private void OnMove(InputValue movementInput)
