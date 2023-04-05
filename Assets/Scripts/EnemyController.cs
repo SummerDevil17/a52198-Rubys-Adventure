@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] bool isMovingVertical = false;
     [SerializeField] float timeBetweenDirections = 2.5f;
     [SerializeField] int amountToDamage = 2;
+    [SerializeField] ParticleSystem smokeVFX;
 
     private float timeTillNewDirection;
     private int currentDirection = 1;
@@ -72,6 +73,7 @@ public class EnemyController : MonoBehaviour
         isBroken = false;
         enemyRigidbody2D.simulated = false;
 
+        smokeVFX.Stop();
         enemyAnimator.SetTrigger("Fixed");
     }
 }

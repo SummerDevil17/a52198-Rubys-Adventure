@@ -11,6 +11,8 @@ public class RubyController : MonoBehaviour
     [SerializeField] float launchForce = 300f;
     [SerializeField] float timeBetweenLaunches = 1.5f;
 
+    [SerializeField] ParticleSystem hurtVFX;
+
     //Stat Control Variables
     private float invincibilityTimer;
     private float timeTillNextLaunch;
@@ -66,6 +68,7 @@ public class RubyController : MonoBehaviour
             isInvincible = true;
             invincibilityTimer = timeInvincible;
 
+            hurtVFX.Play();
             rubyAnimator.SetTrigger("Hit");
         }
 

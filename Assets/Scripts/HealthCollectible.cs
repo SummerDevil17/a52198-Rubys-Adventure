@@ -3,6 +3,7 @@ using UnityEngine;
 public class HealthCollectible : MonoBehaviour
 {
     [SerializeField] int amountToGive = 1;
+    [SerializeField] ParticleSystem healthPickUpVFX;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,6 +13,8 @@ public class HealthCollectible : MonoBehaviour
             if (rubyController.CurrentHealth >= rubyController.MaxHealth) return;
 
             rubyController.ChangeHealth(amountToGive);
+            Instantiate(healthPickUpVFX, transform.position, healthPickUpVFX.transform.rotation);
+
             Destroy(gameObject);
         }
     }
