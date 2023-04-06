@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountToGive: 1
   healthPickUpVFX: {fileID: 7639533337153901648, guid: 21891c8d4869a4f40acf7770e8354357, type: 3}
+  pickUpSFX: {fileID: 8300000, guid: af5f8b64e3f58f24c87ff8f789b04f6c, type: 3}

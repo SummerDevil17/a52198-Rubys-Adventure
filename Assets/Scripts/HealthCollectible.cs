@@ -4,6 +4,7 @@ public class HealthCollectible : MonoBehaviour
 {
     [SerializeField] int amountToGive = 1;
     [SerializeField] ParticleSystem healthPickUpVFX;
+    [SerializeField] AudioClip pickUpSFX;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,6 +14,7 @@ public class HealthCollectible : MonoBehaviour
             if (rubyController.CurrentHealth >= rubyController.MaxHealth) return;
 
             rubyController.ChangeHealth(amountToGive);
+            rubyController.PlaySound(pickUpSFX);
             Instantiate(healthPickUpVFX, transform.position, healthPickUpVFX.transform.rotation);
 
             Destroy(gameObject);

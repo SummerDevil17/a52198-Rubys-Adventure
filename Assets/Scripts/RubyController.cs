@@ -12,6 +12,8 @@ public class RubyController : MonoBehaviour
     [SerializeField] float timeBetweenLaunches = 1.5f;
 
     [SerializeField] ParticleSystem hurtVFX;
+    [SerializeField] AudioClip launchCogSFX;
+    [SerializeField] AudioClip hurtSFX;
 
     //Stat Control Variables
     private float invincibilityTimer;
@@ -24,6 +26,7 @@ public class RubyController : MonoBehaviour
     private PlayerInput rubyPlayerController;
     private Rigidbody2D rubyRigidBody2D;
     private Animator rubyAnimator;
+    private AudioSource rubyAudioSource;
     private Vector2 currentMovementInput;
     private Vector2 animationLookDirection = new Vector2(1f, 0f);
     #endregion
@@ -37,6 +40,7 @@ public class RubyController : MonoBehaviour
     {
         rubyRigidBody2D = GetComponent<Rigidbody2D>();
         rubyAnimator = GetComponent<Animator>();
+        rubyAudioSource = GetComponent<AudioSource>();
         currentHealth = maxHealth;
     }
 
@@ -69,11 +73,17 @@ public class RubyController : MonoBehaviour
             invincibilityTimer = timeInvincible;
 
             hurtVFX.Play();
+            rubyAudioSource.PlayOneShot(hurtSFX);
             rubyAnimator.SetTrigger("Hit");
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+    }
+
+    public void PlaySound(AudioClip clipToPlay)
+    {
+        rubyAudioSource.PlayOneShot(clipToPlay);
     }
 
     private void OnMove(InputValue movementInput)
@@ -101,6 +111,7 @@ public class RubyController : MonoBehaviour
         timeTillNextLaunch = timeBetweenLaunches;
 
         rubyAnimator.SetTrigger("Launch");
+        rubyAudioSource.PlayOneShot(launchCogSFX);
     }
 
     private void OnInteract()
@@ -112,4 +123,5 @@ public class RubyController : MonoBehaviour
                 character.DisplayDialog();
         }
     }
+
 }
