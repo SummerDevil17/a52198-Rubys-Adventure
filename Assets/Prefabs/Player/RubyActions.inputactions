@@ -15,18 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "f98e495e-be0c-4e48-ba92-f792659b3125",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Launch",
                     "type": "Button",
                     "id": "08233118-5549-4364-ae8b-b49bdd081afc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "cbaf8b1c-f98e-4ca1-84d9-0203b5fe011e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -157,50 +157,6 @@
                 },
                 {
                     "name": "",
-                    "id": "3ea4d645-4504-4529-b061-ab81934c3752",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
-                    "path": "<Joystick>/{Hatswitch}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
@@ -234,23 +190,34 @@
                 },
                 {
                     "name": "",
-                    "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
+                    "id": "ff264dfe-adbb-42cf-b283-1e76c03bb501",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Joystick",
-                    "action": "Launch",
+                    "groups": "Gamepad",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "8255d333-5683-4943-a58a-ccb207ff1dce",
-                    "path": "<XRController>/{PrimaryAction}",
+                    "id": "ff67afe0-4a75-42b4-b510-e3c1e87d4c9b",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "XR",
-                    "action": "Launch",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6926a617-af86-4038-a7da-8a900d422e67",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

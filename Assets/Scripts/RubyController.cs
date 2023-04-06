@@ -22,7 +22,7 @@ public class RubyController : MonoBehaviour
 
     #region Component References
     private PlayerInput rubyPlayerController;
-    private Rigidbody2D playerRigidBody2D;
+    private Rigidbody2D rubyRigidBody2D;
     private Animator rubyAnimator;
     private Vector2 currentMovementInput;
     private Vector2 animationLookDirection = new Vector2(1f, 0f);
@@ -35,7 +35,7 @@ public class RubyController : MonoBehaviour
 
     void Start()
     {
-        playerRigidBody2D = GetComponent<Rigidbody2D>();
+        rubyRigidBody2D = GetComponent<Rigidbody2D>();
         rubyAnimator = GetComponent<Animator>();
         currentHealth = maxHealth;
     }
@@ -53,10 +53,10 @@ public class RubyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 position = playerRigidBody2D.position;
+        Vector2 position = rubyRigidBody2D.position;
         position += speed * currentMovementInput * Time.deltaTime;
 
-        playerRigidBody2D.MovePosition(position);
+        rubyRigidBody2D.MovePosition(position);
     }
 
     public void ChangeHealth(int amount)
@@ -95,11 +95,21 @@ public class RubyController : MonoBehaviour
     {
         if (timeTillNextLaunch >= 0) return;
 
-        GameObject projectileObject = Instantiate(projectilePrefab, playerRigidBody2D.position + Vector2.up * 0.5f, Quaternion.identity);
+        GameObject projectileObject = Instantiate(projectilePrefab, rubyRigidBody2D.position + Vector2.up * 0.5f, Quaternion.identity);
         projectileObject.GetComponent<Projectile>().Launch(animationLookDirection, launchForce);
 
         timeTillNextLaunch = timeBetweenLaunches;
 
         rubyAnimator.SetTrigger("Launch");
+    }
+
+    private void OnInteract()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rubyRigidBody2D.position + Vector2.up * 0.2f, animationLookDirection, 1.5f, LayerMask.GetMask("NPC"));
+        if (hit.collider != null)
+        {
+            if (hit.collider.TryGetComponent<NonPlayerCharacter>(out NonPlayerCharacter character))
+                character.DisplayDialog();
+        }
     }
 }
