@@ -154,6 +154,8 @@ MonoBehaviour:
   timeBetweenDirections: 2.5
   amountToDamage: 2
   smokeVFX: {fileID: 8959517322489088532}
+  hitSFX: {fileID: 8300000, guid: ae904c7305df7344d86b2092c0cb3a26, type: 3}
+  fixedSFX: {fileID: 8300000, guid: e7fa1971a86d60945bb64585c0ac14d5, type: 3}
 --- !u!95 &8455211487755555359
 Animator:
   serializedVersion: 5

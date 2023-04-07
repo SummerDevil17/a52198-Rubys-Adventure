@@ -20,7 +20,7 @@ public class RubyController : MonoBehaviour
     private float timeTillNextLaunch;
     private int currentHealth;
 
-    private bool isInvincible;
+    private bool isInvincible, isDead = false;
 
     #region Component References
     private PlayerInput rubyPlayerController;
@@ -46,6 +46,8 @@ public class RubyController : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0) rubyAudioSource.Stop();
+
         if (isInvincible)
         {
             invincibilityTimer -= Time.deltaTime;
@@ -79,6 +81,12 @@ public class RubyController : MonoBehaviour
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+
+        if (currentHealth <= 0)
+        {
+            isDead = true;
+            GameSessionController.instance.LoseGame();
+        }
     }
 
     public void PlaySound(AudioClip clipToPlay)
@@ -88,6 +96,8 @@ public class RubyController : MonoBehaviour
 
     private void OnMove(InputValue movementInput)
     {
+        if (isDead) return;
+
         currentMovementInput = movementInput.Get<Vector2>();
 
         if (!Mathf.Approximately(currentMovementInput.x, 0.0f) || !Mathf.Approximately(currentMovementInput.y, 0.0f))
@@ -96,6 +106,11 @@ public class RubyController : MonoBehaviour
             animationLookDirection.Normalize();
         }
 
+        if (currentMovementInput.magnitude > 0f && rubyAudioSource.isPlaying == false)
+            rubyAudioSource.Play();
+        else if (currentMovementInput.magnitude <= 0f && !isInvincible && timeBetweenLaunches >= 0)
+            rubyAudioSource.Stop();
+
         rubyAnimator.SetFloat("Look X", animationLookDirection.x);
         rubyAnimator.SetFloat("Look Y", animationLookDirection.y);
         rubyAnimator.SetFloat("Speed", currentMovementInput.magnitude);
@@ -103,7 +118,7 @@ public class RubyController : MonoBehaviour
 
     private void OnLaunch()
     {
-        if (timeTillNextLaunch >= 0) return;
+        if (timeTillNextLaunch >= 0 || isDead) return;
 
         GameObject projectileObject = Instantiate(projectilePrefab, rubyRigidBody2D.position + Vector2.up * 0.5f, Quaternion.identity);
         projectileObject.GetComponent<Projectile>().Launch(animationLookDirection, launchForce);
@@ -116,6 +131,8 @@ public class RubyController : MonoBehaviour
 
     private void OnInteract()
     {
+        if (isDead) return;
+
         RaycastHit2D hit = Physics2D.Raycast(rubyRigidBody2D.position + Vector2.up * 0.2f, animationLookDirection, 1.5f, LayerMask.GetMask("NPC"));
         if (hit.collider != null)
         {

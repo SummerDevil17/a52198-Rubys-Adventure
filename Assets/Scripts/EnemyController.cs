@@ -7,11 +7,14 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float timeBetweenDirections = 2.5f;
     [SerializeField] int amountToDamage = 2;
     [SerializeField] ParticleSystem smokeVFX;
+    [SerializeField] AudioClip hitSFX;
+    [SerializeField] AudioClip fixedSFX;
 
     private float timeTillNewDirection;
     private int currentDirection = 1;
     private Rigidbody2D enemyRigidbody2D;
     private Animator enemyAnimator;
+    private AudioSource enemyAudioSource;
     private bool isBroken = true;
 
 
@@ -19,6 +22,7 @@ public class EnemyController : MonoBehaviour
     {
         enemyRigidbody2D = GetComponent<Rigidbody2D>();
         enemyAnimator = GetComponent<Animator>();
+        enemyAudioSource = GetComponent<AudioSource>();
         timeTillNewDirection = timeBetweenDirections;
     }
 
@@ -65,6 +69,7 @@ public class EnemyController : MonoBehaviour
         if (other.gameObject.TryGetComponent<RubyController>(out RubyController rubyController))
         {
             rubyController.ChangeHealth(-amountToDamage);
+            enemyAudioSource.PlayOneShot(hitSFX);
         }
     }
 
@@ -74,6 +79,16 @@ public class EnemyController : MonoBehaviour
         enemyRigidbody2D.simulated = false;
 
         smokeVFX.Stop();
+
+        enemyAudioSource.clip = null;
+        enemyAudioSource.loop = false;
+        enemyAudioSource.spatialBlend = 0;
+        enemyAudioSource.volume = 0.7f;
+
+        enemyAudioSource.PlayOneShot(fixedSFX);
+
         enemyAnimator.SetTrigger("Fixed");
+
+        GameSessionController.instance.AddToFixedEnemies();
     }
 }
